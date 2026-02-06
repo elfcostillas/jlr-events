@@ -3,9 +3,14 @@
 namespace App\Services;
 
 use App\Repositories\EventsRepository;
+use Error;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
-class EventsService
+class EventsService extends Service
 {
+    protected $table = 'events';
+
     public function __construct(protected EventsRepository $events_repo)
     {
 
@@ -15,4 +20,6 @@ class EventsService
     {
         return $this->events_repo->getALL();
     }
+
+
 }

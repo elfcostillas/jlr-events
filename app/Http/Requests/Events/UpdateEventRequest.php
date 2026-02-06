@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Events;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Rule;
 
-
-class CreateEventRequest extends FormRequest
+class UpdateEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,14 @@ class CreateEventRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    
+
     public function rules(): array
     {
         return [
             'event_name' => 'required|min:4',
             'event_location' => 'required|min:4',
-            'event_date' => 'required|unique:events',
+            'event_date' => ['required',Rule::unique('events', 'event_date')->ignore($this->id)],
+            'id' => 'required|exists:events,id',
         ];
     }
 
@@ -41,15 +42,5 @@ class CreateEventRequest extends FormRequest
             ], 422)
         );
     }
-}
 
-/*
-{
-    "message": "Validation failed",
-    "errors": {
-        "event_date": [
-            "The event date has already been taken."
-        ]
-    }
 }
-    */
