@@ -16,6 +16,20 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`jlr_events` /*!40100 DEFAULT CHARACTER 
 
 USE `jlr_events`;
 
+/*Table structure for table `att_status` */
+
+DROP TABLE IF EXISTS `att_status`;
+
+CREATE TABLE `att_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `att_status_code` varchar(12) DEFAULT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `att_status` */
+
+insert  into `att_status`(`id`,`att_status_code`) values (1,NULL),(2,'Absent'),(3,'Present');
+
 /*Table structure for table `departments` */
 
 DROP TABLE IF EXISTS `departments`;
@@ -126,12 +140,29 @@ CREATE TABLE `events` (
   `event_name` varchar(180) DEFAULT NULL,
   `event_location` text DEFAULT NULL,
   `event_date` date DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `NewIndex1` (`event_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `events` */
 
-insert  into `events`(`id`,`event_name`,`event_location`,`event_date`) values (1,'JLR Founder\'s Day','JLR Compound, B. Suico St., Tingub, Mandaue, 6014 Cebu','2026-03-17');
+insert  into `events`(`id`,`event_name`,`event_location`,`event_date`) values (2,'Some eventsaxcvxcv','Somsd','2026-03-20');
+
+/*Table structure for table `events_att` */
+
+DROP TABLE IF EXISTS `events_att`;
+
+CREATE TABLE `events_att` (
+  `line_id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `biometric_id` int(11) DEFAULT NULL,
+  `att_status` int(11) DEFAULT NULL,
+  UNIQUE KEY `line_id` (`line_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `events_att` */
+
+insert  into `events_att`(`line_id`,`event_id`,`biometric_id`,`att_status`) values (1,1,847,3);
 
 /*Table structure for table `failed_jobs` */
 
