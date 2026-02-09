@@ -4,28 +4,31 @@
             <template v-slot:title > Events </template>
 
             <template v-slot:table>
-                <DataTable :value="data" :loading="loading" :columns="columns" @edit="edit" />
+                <DataTable :value="data" :loading="loading" :columns="columns" @edit="edit" @create="create" />
             </template>
             <template v-slot:dialog >
                 <Dialog v-model:visible="isVisible" modal header="Event Details" :style="{ width: '32rem' }">
                    
                     <div class="grid">
-                        <div class="col-6 ">
-                            <label for="first_name" class="block mb-2 font-medium">First Name</label>
-                            <InputText id="first_name" class="w-full" />
+                        <div class="col-12 ">
+                            <label for="event_date" class="block mb-2 font-medium">Date</label>
+                            <DatePicker v-model="form.event_date" showIcon  id="event_date" class="w-full" />
                         </div>
-                        <div class="col-6 ">
-                            <label for="last_name" class="block mb-2 font-medium">Last Name</label>
-                            <InputText id="last_name" class="w-full" />
+                        <div class="col-12 ">
+                            <label for="event_name" class="block mb-2 font-medium">Event Name</label>
+                            <InputText v-model="form.event_name" id="event_name" class="w-full" />
                         </div>
 
-                        <div class="col-12 md:col-6">
-                            <label for="email" class="block mb-2 font-medium">Email</label>
-                            <InputText id="email" class="w-full" />
+                        <div class="col-12">
+                            <label for="event_location" class="block mb-2 font-medium">Location</label>
+                            <InputText v-model="form.event_location" id="event_location" class="w-full" />
                         </div>
-                        <div class="col-12 md:col-6">
-                            <label for="phone" class="block mb-2 font-medium">Phone</label>
-                            <InputText id="phone" class="w-full" />
+                        
+                        <div class="col-6 flex justify-content-center">
+                            <Button class="w-10rem" icon="pi pi-save" v-model:disabled="isDisabled" label="Save"  @click="save"></Button>
+                        </div>
+                        <div class="col-6 flex justify-content-center">
+                            <Button class="w-10rem" severity="danger" icon="pi pi-times-circle" label="Cancel" @click="cancel"></Button>
                         </div>
                     </div>
                 </Dialog>
@@ -47,7 +50,10 @@
     const data = ref();
     const loading = ref(true);
     const store = useEventStore();
+
     const isVisible = ref(true);
+    const isDisabled = ref(false);
+
     const columns = ref([
         { field : 'id', header : 'ID' },
         { field : 'event_date', header : 'Date', type : 'date' },
@@ -61,8 +67,36 @@
         }
     ]);
 
-    const edit = (data) => {
+    const create = async () => {
+        form_reset();  
+        await showDialog();
+        
+    };
+
+    const edit = async (data) => {
+        form_reset();
+        await toggleDialog();
         console.log(data);
+    };
+
+    const showDialog = () => {
+        isVisible.value = true;
+    }
+
+    const toggleDialog = () => {
+        isVisible.value = !isVisible.value;
+    }
+
+    const save = async () => {
+        delay();
+
+        console.log(form.value);
+       
+        console.log(form.value);
+    };
+
+    const cancel = async () => {
+        await toggleDialog();
     };
 
     onMounted(async () => {
@@ -75,6 +109,29 @@
         data.value = list.value;
         loading.value = false;
     };
+
+    const delay = () => {
+        isDisabled.value = true;
+        setTimeout(()=>{
+            isDisabled.value = false;
+        },3000);
+    }
+
+    const form = ref({
+        id : null,
+        event_name : null,
+        event_location : null,
+        event_date : null,
+    });
+
+    const form_reset = () => {
+        form.value = {
+            id : null,
+            event_name : null,
+            event_location : null,
+            event_date : null,
+        };
+    }
 
 
 </script>

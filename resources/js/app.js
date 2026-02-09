@@ -24,6 +24,7 @@ import Button from 'primevue/button';
 // import Dialog from 'primevue/dialog';
 import { Dialog } from 'primevue';
 import { InputText } from 'primevue';
+import { DatePicker } from 'primevue';
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -43,6 +44,7 @@ createInertiaApp({
             .component('Button', Button)
             .component('Dialog', Dialog)
             .component('InputText', InputText)
+            .component('DatePicker', DatePicker)
             
             .mount(el);
     },

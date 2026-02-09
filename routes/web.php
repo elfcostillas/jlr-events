@@ -48,5 +48,5 @@ Route::prefix('events')->group(function(){
 });
 
 Route::prefix('attendance')->group(function(){ 
-    Route::get('/', [AttendanceController::class, 'index'])->name('events.index');
+    Route::get('/', [AttendanceController::class, 'index'])->name('attendance.index');
 });
