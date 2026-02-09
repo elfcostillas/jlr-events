@@ -7,12 +7,18 @@ use App\Http\Requests\Events\DeleteEventRequest;
 use App\Http\Requests\Events\UpdateEventRequest;
 use App\Services\EventsService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EventsContoller extends Controller
 {
     public function __construct(protected EventsService $service)
     {
         
+    }
+
+    public function index()
+    {
+        return Inertia::render('Events/MainPage',[]);
     }
 
     public function list()

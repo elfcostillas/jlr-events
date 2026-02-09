@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\EventsContoller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +38,15 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('index',function(){
+    return Inertia::render('Index');
+});
+
+Route::prefix('events')->group(function(){ 
+    Route::get('/', [EventsContoller::class, 'index'])->name('events.index');
+});
+
+Route::prefix('attendance')->group(function(){ 
+    Route::get('/', [AttendanceController::class, 'index'])->name('events.index');
+});
