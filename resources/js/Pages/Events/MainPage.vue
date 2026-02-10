@@ -39,19 +39,21 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
     import AppLayout from '../AppLayout.vue';
     import DataTable from '@/Components/App/DataTable.vue';
 
     import { useEventStore } from '@/composables/stores/event-store';
 
     import { onMounted } from 'vue';
+    import { useToast } from 'primevue';
     
+    const toast = useToast();
     const data = ref();
     const loading = ref(true);
     const store = useEventStore();
 
-    const isVisible = ref(true);
+    const isVisible = ref(false);
     const isDisabled = ref(false);
 
     const columns = ref([
@@ -59,6 +61,7 @@
         { field : 'event_date', header : 'Date', type : 'date' },
         { field : 'event_name', header : 'Event Name' },
         { field : 'event_location', header : 'Location' },
+        { field : 'event_status', header : 'Status', type :'status' },
         {
             field : 'actions',
             header : 'Actions',
@@ -66,6 +69,10 @@
             buttons : ['edit']
         }
     ]);
+
+    const convertDate = () => {
+        form.value.event_date =  form.value.event_date.toISOString().split('T')[0];
+    };
 
     const create = async () => {
         form_reset();  
@@ -76,7 +83,14 @@
     const edit = async (data) => {
         form_reset();
         await toggleDialog();
-        console.log(data);
+
+        form.value = {
+            id : data.id,
+            event_name : data.event_name,
+            event_location : data.event_location,
+            event_date : new Date(data.event_date),
+        };
+
     };
 
     const showDialog = () => {
@@ -89,10 +103,20 @@
 
     const save = async () => {
         delay();
+        let resp;
+        
+        if(form.value.id == null || form.value.id == undefined){
+            resp = await store.create(form.value);
+        }else{
+            resp = await store.update(form.value);
+        }
 
-        console.log(form.value);
-       
-        console.log(form.value);
+        if(resp.severity == 'success'){
+            fetchData();
+        }
+
+        toast.add(resp);
+
     };
 
     const cancel = async () => {

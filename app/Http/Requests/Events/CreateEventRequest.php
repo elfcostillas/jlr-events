@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Events;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -30,6 +31,17 @@ class CreateEventRequest extends FormRequest
             'event_location' => 'required|min:4',
             'event_date' => 'required|unique:events',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+    
+        $this->merge([
+            'event_date' => Carbon::parse($this->event_date)
+                ->setTimezone(config('app.timezone'))
+                ->format('Y-m-d'),
+        ]);
+       
     }
 
     protected function failedValidation(Validator $validator)

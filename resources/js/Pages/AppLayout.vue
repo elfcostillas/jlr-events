@@ -7,6 +7,8 @@
 
         <slot name="table" />
         <slot name="dialog" />
+
+        <Toast />
     </div>
 </template>
 

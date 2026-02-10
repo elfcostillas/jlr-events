@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class UpdateEventRequest extends FormRequest
 {
@@ -31,6 +32,17 @@ class UpdateEventRequest extends FormRequest
             'event_date' => ['required',Rule::unique('events', 'event_date')->ignore($this->id)],
             'id' => 'required|exists:events,id',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+    
+        $this->merge([
+            'event_date' => Carbon::parse($this->event_date)
+                ->setTimezone(config('app.timezone'))
+                ->format('Y-m-d'),
+        ]);
+       
     }
 
     protected function failedValidation(Validator $validator)

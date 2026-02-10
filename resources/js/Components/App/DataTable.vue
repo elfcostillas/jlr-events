@@ -19,8 +19,9 @@
                     <span v-if="col.type === 'date'">
                         {{ formatDate(data[col.field]) }}
                     </span>
-
-                    <!-- Actions column -->
+                    <span v-else-if="col.type === 'status'">
+                        <Tag :severity="getSeverity(data[col.field])"> {{ data[col.field] }} </Tag>
+                    </span>
                     <span v-else-if="col.type === 'actions'">
                         <Button
                             v-if="col.buttons?.includes('edit')"
@@ -31,8 +32,6 @@
                             @click="$emit('edit', data)"
                         />
                     </span>
-
-                    <!-- Default column -->
                     <span v-else>
                         {{ data[col.field] }}
                     </span>
@@ -58,6 +57,19 @@
             day: '2-digit',
         })
     }
+
+    const getSeverity = (status) => {
+        switch (status.toLowerCase()) {
+            case 'ongoing':
+                    return 'success';  
+                case 'concluded':
+                    return 'secondary';  
+                case 'upcoming':
+                    return 'warn';   
+                default:
+                    return 'info';   
+        }
+    };
 </script>
 
 <style lang="scss" scoped>

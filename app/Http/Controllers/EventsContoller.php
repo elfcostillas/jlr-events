@@ -6,6 +6,7 @@ use App\Http\Requests\Events\CreateEventRequest;
 use App\Http\Requests\Events\DeleteEventRequest;
 use App\Http\Requests\Events\UpdateEventRequest;
 use App\Services\EventsService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -36,6 +37,7 @@ class EventsContoller extends Controller
         $validated =  $request->validated();
 
         $result = $this->service->create($validated);
+        $this->service->updateStatus();
 
         if(is_array($result)){
             return response()->json([
@@ -47,7 +49,7 @@ class EventsContoller extends Controller
         return response()->json([
             'message' => 'Event created successfully',
             'data' => $validated,
-        ]);
+        ],200);
     }
 
     public function view(Request $request)
@@ -60,6 +62,7 @@ class EventsContoller extends Controller
         $validated =  $request->validated();
 
         $result = $this->service->update($validated);
+        $this->service->updateStatus();
 
         if(is_array($result)){
             return response()->json([
@@ -69,9 +72,9 @@ class EventsContoller extends Controller
         }
 
         return response()->json([
-            'message' => 'Event created successfully',
+            'message' => 'Event updated successfully',
             'data' => $validated,
-        ]);
+        ],200);
     }
 
     public function destroy(DeleteEventRequest $request)

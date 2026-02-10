@@ -21,5 +21,19 @@ class EventsService extends Service
         return $this->events_repo->getALL();
     }
 
+    public function updateStatus()
+    {
+        DB::table('events')
+            ->update([
+                'event_status' => DB::raw("
+                    CASE
+                        WHEN event_date = CURDATE() THEN 'Ongoing'
+                        WHEN event_date < CURDATE() THEN 'Concluded'
+                        WHEN event_date > CURDATE() THEN 'Upcoming'
+                    END
+                ")
+            ]);
+    }
+
 
 }
