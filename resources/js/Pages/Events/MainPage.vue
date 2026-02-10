@@ -4,7 +4,7 @@
             <template v-slot:title > Events </template>
 
             <template v-slot:table>
-                <DataTable :value="data" :loading="loading" :columns="columns" @edit="edit" @create="create" />
+                <DataTable :title="title" :value="data" :loading="loading" :columns="columns" @edit="edit" @create="create" />
             </template>
             <template v-slot:dialog >
                 <Dialog v-model:visible="isVisible" modal header="Event Details" :style="{ width: '32rem' }">
@@ -47,6 +47,8 @@
 
     import { onMounted } from 'vue';
     import { useToast } from 'primevue';
+    
+    const title = 'Events';
     
     const toast = useToast();
     const data = ref();

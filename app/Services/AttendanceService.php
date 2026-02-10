@@ -4,12 +4,18 @@ namespace App\Services;
 
 use App\Repositories\AttendanceRepository;
 use App\Repositories\EmployeeRepository;
+use App\Repositories\EventsRepository;
 
 class AttendanceService
 {
-    public function __construct(protected EmployeeRepository $emp_repo,protected AttendanceRepository $att_repo)
+    public function __construct(protected EmployeeRepository $emp_repo,protected AttendanceRepository $att_repo,protected EventsRepository $event_repo)
     {
-        
+      
+    }
+
+    public function getOngoingEvent()
+    {
+        return $this->event_repo->getOngoingEvent();
     }
 
     public function list($event_id)

@@ -16,12 +16,15 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        return Inertia::render('Attendance/MainPage',[]);
+        $ongoing = $this->service->getOngoingEvent();
+        return Inertia::render('Attendance/MainPage',['events'=> $ongoing]);
     }
 
     public function list(Request $request)
     {
-        $result  = $this->service->list($request->id);
+        $ongoing = $this->service->getOngoingEvent();
+       
+        $result  = $this->service->list($ongoing->id);
 
         return response()->json([
             'data' => $result,
