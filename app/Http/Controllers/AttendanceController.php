@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Attendance\CreateAttendanceRequest;
+use App\Http\Requests\Attendance\DestroyAttendanceRequest;
+use App\Http\Requests\Attendance\UpdateAttendanceRequest;
 use App\Services\AttendanceService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,18 +35,60 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(CreateAttendanceRequest $request)
     {
+        $validated =  $request->validated();
 
+        $result = $this->service->create($validated);
+
+         if(is_array($result)){
+            return response()->json([
+                'message' => 'Request failed',
+                'errors' => $result
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Participation recorded successfully',
+            'data' => $validated,
+        ],200);
     }
 
-    public function update()
+    public function update(UpdateAttendanceRequest $request)
     {
+        $validated =  $request->validated();
 
+        $result = $this->service->update($validated);
+
+         if(is_array($result)){
+            return response()->json([
+                'message' => 'Request failed',
+                'errors' => $result
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Attendance updated successfully',
+            'data' => $validated,
+        ],200);
     }
 
-    public function destroy()
+    public function destroy(DestroyAttendanceRequest $request)
     {
+        $validated =  $request->validated();
 
+        $result = $this->service->destroy($validated);
+
+         if(is_array($result)){
+            return response()->json([
+                'message' => 'Request failed',
+                'errors' => $result
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Participation withdrawn successfully',
+            'data' => $validated,
+        ],200);
     }
 }

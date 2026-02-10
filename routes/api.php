@@ -48,7 +48,7 @@ Route::prefix('events')->controller(EventsContoller::class)->group(function(){
     });
 }); 
 
-Route::prefix('attendance')->controller(AttendanceController::class)->group(function(){
+Route::prefix('attendance')->middleware('auth')->controller(AttendanceController::class)->group(function(){
     // Route::get('list/{id}','list');
     Route::get('list','list');
     Route::post('create','create');

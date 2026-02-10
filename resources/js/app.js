@@ -31,6 +31,12 @@ import { Tag } from 'primevue';
 import { Message } from 'primevue';
 import { InputIcon } from 'primevue';
 import { IconField } from 'primevue';
+import { Toolbar } from 'primevue';
+import { ConfirmDialog } from 'primevue';
+
+import ConfirmationService from 'primevue/confirmationservice';
+
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -55,7 +61,10 @@ createInertiaApp({
             .component('InputIcon', InputIcon)
             .component('IconField', IconField)
             .component('Message', Message)
+            .component('Toolbar', Toolbar)
+            .component('ConfirmDialog', ConfirmDialog)
             .use(ToastService)
+            .use(ConfirmationService)
             
             .mount(el);
     },
