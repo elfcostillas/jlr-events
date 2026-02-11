@@ -33,6 +33,8 @@ import { InputIcon } from 'primevue';
 import { IconField } from 'primevue';
 import { Toolbar } from 'primevue';
 import { ConfirmDialog } from 'primevue';
+import { TieredMenu } from 'primevue';
+import { Menu } from 'primevue';
 
 import ConfirmationService from 'primevue/confirmationservice';
 
@@ -62,6 +64,8 @@ createInertiaApp({
             .component('IconField', IconField)
             .component('Message', Message)
             .component('Toolbar', Toolbar)
+            .component('TieredMenu', TieredMenu)
+            .component('Menu', Menu)
             .component('ConfirmDialog', ConfirmDialog)
             .use(ToastService)
             .use(ConfirmationService)

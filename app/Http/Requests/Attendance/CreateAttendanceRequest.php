@@ -28,7 +28,7 @@ class CreateAttendanceRequest extends FormRequest
             'biometric_id' => 'required',
             'event_id' => 'required',
             'att_status' => 'required',
-            'joined_by' => 'required',
+            'registered_by' => 'required',
         ];
     }
 
@@ -36,7 +36,7 @@ class CreateAttendanceRequest extends FormRequest
     {
         $this->merge([
             'att_status' => 3,
-            // 'joined_by' => Auth::user()->id
+            'registered_by' => Auth::user()->id
         ]);
        
     }

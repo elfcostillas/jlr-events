@@ -15,12 +15,12 @@
                         <Button icon="pi pi-filter-slash" severity="secondary" @click="filters['global'].value=''" class="ml-2"> </Button>
                        
                     </template>
-                    <template #center>
+                    <template #end>
                         <Button icon="pi pi-sync" severity="contrast" @click="$emit('fetchData')"  class="ml-2"> </Button>
                     </template>
-                    <template #end>
+                    <!-- <template #end>
                         <Button icon="pi pi-print" label="Print" ></Button>
-                    </template>
+                    </template> -->
                 </Toolbar>
                 
             </template>

@@ -29,8 +29,17 @@
                             severity="secondary" raised
                             icon="pi pi-pencil"
                             label="Edit"
-                            class="p-button-sm"
+                            class="p-button-sm mr-2"
                             @click="$emit('edit', data)"
+                        />
+
+                        <Button
+                            v-if="col.buttons?.includes('print')"
+                            severity="secondary" raised
+                            icon="pi pi-print"
+                            label="Print"
+                            class="p-button-sm mr-2"
+                            @click="$emit('print', data)"
                         />
                     </span>
                     <span v-else>

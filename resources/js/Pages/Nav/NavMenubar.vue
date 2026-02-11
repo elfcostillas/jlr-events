@@ -14,13 +14,37 @@
                     <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
                 </a>
             </template> -->
+            <template #end>
+                <Button
+                    text
+                    icon="pi pi-user"
+                    :label="user.name"
+                    severity="contrast"
+                    @click="toggle"
+                />
+                <Menu ref="menu" :model="userMenu" popup />
+            </template>
         </Menubar>
     </div>
 </template>
 
 <script setup>
+
 import { ref } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
+
+const menu = ref();
+
+const page = usePage();
+const user = page.props.auth.user;
+
+const toggle = (event) => {
+    menu.value.toggle(event);
+};
+
+const logout = () => {
+    router.post(route('logout'));
+};
 
 const items = ref([
     {
@@ -40,6 +64,28 @@ const items = ref([
         }
     }
 ]);
+
+const userMenu = [{
+    label : 'Logout',
+    icon : 'pi pi-sign-out',
+    command: logout,
+}];
+
+/*
+const userMenu = [
+    {
+        label : user.name,
+        icon : 'pi pi-user',
+        items : [
+            {
+                label: 'Logout',
+                icon: 'pi pi-sign-out',
+                command: logout,
+            },
+        ]
+    }
+];
+*/
 
 </script>
 

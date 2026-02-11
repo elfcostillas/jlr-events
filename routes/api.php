@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // Route::prefix('events')->middleware('access:memo/awol')->controller(AWOLMemoController::class)->group(function(){
-Route::prefix('events')->controller(EventsContoller::class)->group(function(){
+Route::prefix('events')->middleware('auth')->controller(EventsContoller::class)->group(function(){
 
     Route::get('list','list');
     Route::get('view/{id}','view');

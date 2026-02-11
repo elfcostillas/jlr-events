@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Builder\EventAttendanceBuilder;
+use App\Repositories\EmployeeRepository;
 use App\Repositories\EventsRepository;
 use Error;
 use Exception;
@@ -11,7 +13,7 @@ class EventsService extends Service
 {
     protected $table = 'events';
 
-    public function __construct(protected EventsRepository $events_repo)
+    public function __construct(protected EventsRepository $events_repo,protected EmployeeRepository $emp_repo)
     {
 
     }
@@ -33,6 +35,19 @@ class EventsService extends Service
                     END
                 ")
             ]);
+    }
+
+    public function buildAttendance($event_id)
+    {
+        $builder = app(EventAttendanceBuilder::class);   
+
+        $attendance = $builder
+                    ->setEvent($event_id)
+                    ->getLocations()
+                    ->getDivisions()
+                    ->get();
+
+        return $attendance;
     }
 
 

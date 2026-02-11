@@ -6,6 +6,7 @@ use App\Http\Requests\Events\CreateEventRequest;
 use App\Http\Requests\Events\DeleteEventRequest;
 use App\Http\Requests\Events\UpdateEventRequest;
 use App\Services\EventsService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -94,5 +95,18 @@ class EventsContoller extends Controller
             'message' => 'Event deleted successfully',
             'data' => $validated,
         ]);
+    }
+
+    public function print(Request $request)
+    {
+        $event_id = (int) $request->id;
+
+        $data = $this->service->buildAttendance($event_id);
+
+        $pdf = Pdf::loadView('event-attendance.print',[
+            'data' => $data
+        ]);
+     
+        return $pdf->stream('JLR Event Attendance.pdf');
     }
 }

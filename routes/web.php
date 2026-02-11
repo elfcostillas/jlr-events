@@ -43,10 +43,11 @@ Route::get('index',function(){
     return Inertia::render('Index');
 });
 
-Route::prefix('events')->group(function(){ 
+Route::middleware('auth')->prefix('events')->group(function(){ 
     Route::get('/', [EventsContoller::class, 'index'])->name('events.index');
+    Route::get('print/{id}', [EventsContoller::class, 'print'])->name('events.print');
 });
 
-Route::prefix('attendance')->group(function(){ 
+Route::middleware('auth')->prefix('attendance')->group(function(){ 
     Route::get('/', [AttendanceController::class, 'index'])->name('attendance.index');
 });

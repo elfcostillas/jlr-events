@@ -4,7 +4,10 @@
             <template v-slot:title > Events </template>
 
             <template v-slot:table>
-                <DataTable :title="title" :value="data" :loading="loading" :columns="columns" @edit="edit" @create="create" />
+                <DataTable :title="title" :value="data" :loading="loading" :columns="columns" 
+                @edit="edit"
+                @create="create"
+                @print="print" />
             </template>
             <template v-slot:dialog >
                 <Dialog v-model:visible="isVisible" modal header="Event Details" :style="{ width: '32rem' }">
@@ -68,7 +71,7 @@
             field : 'actions',
             header : 'Actions',
             type : 'actions',
-            buttons : ['edit']
+            buttons : ['edit','print']
         }
     ]);
 
@@ -101,6 +104,10 @@
 
     const toggleDialog = () => {
         isVisible.value = !isVisible.value;
+    }
+
+    const print = (data) => {
+        window.open(`events/print/${data.id}`);
     }
 
     const save = async () => {
