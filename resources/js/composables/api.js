@@ -5,7 +5,8 @@ axios.defaults.withXSRFToken = true;
 
 const api  = axios.create({
     // baseURL : 'http://172.17.56.65/support-group-api/'    
-    baseURL : '/jlr-event-att/public/api'
+    // baseURL : '/jlr-event-att/api'
+    baseURL : '/api'
 });
 
 export default api;
