@@ -17,4 +17,9 @@ class EventsRepository
     {
         return DB::table('events')->where('event_status','Ongoing')->first();
     }
+
+    public function getEvent($event_id)
+    {
+        return DB::table('events')->where('id',$event_id)->first();
+    }
 }

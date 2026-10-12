@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageNotification;
 use App\Http\Requests\Attendance\CreateAttendanceRequest;
 use App\Http\Requests\Attendance\DestroyAttendanceRequest;
 use App\Http\Requests\Attendance\UpdateAttendanceRequest;
@@ -48,6 +49,11 @@ class AttendanceController extends Controller
             ]);
         }
 
+        if($result){
+            
+            event(new MessageNotification('my first broadcast.'));
+        }
+
         return response()->json([
             'message' => 'Participation recorded successfully',
             'data' => $validated,
@@ -67,6 +73,11 @@ class AttendanceController extends Controller
             ]);
         }
 
+        if($result){
+            // dd('fire');
+            event(new MessageNotification('my first broadcast.'));
+        }
+
         return response()->json([
             'message' => 'Attendance updated successfully',
             'data' => $validated,
@@ -79,11 +90,15 @@ class AttendanceController extends Controller
 
         $result = $this->service->destroy($validated);
 
-         if(is_array($result)){
+        if(is_array($result)){
             return response()->json([
                 'message' => 'Request failed',
                 'errors' => $result
             ]);
+        }
+
+        if($result){
+            event(new MessageNotification('my first broadcast.'));
         }
 
         return response()->json([

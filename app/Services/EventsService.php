@@ -50,5 +50,15 @@ class EventsService extends Service
         return $attendance;
     }
 
+    public function getTotals($events_id)
+    {
+        return $this->emp_repo->getTotal($events_id);
+    }
+
+    public function getEvent($event_id)
+    {
+        return $this->events_repo->getEvent($event_id);
+    }
+
 
 }

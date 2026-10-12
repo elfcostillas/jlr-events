@@ -42,6 +42,15 @@
     </style>
 </head>
 <body>
+    <table style="width:100%;">
+        <tr>
+            <td>{{ $event->event_name }}</td> <td style="text-align: right;"> {{ Carbon\Carbon::parse($event->event_date)->format('m/d/Y') }} </td>
+        </tr>
+        <tr>
+            <td>{{ $event->event_location }}</td>
+        </tr>
+    </table>
+    <br>
     @foreach($data as $location)
         <table border=1 style="width:100%;border=1;border-collapse:collapse;">
             <tr>
@@ -67,6 +76,31 @@
                 @endforeach
             @endforeach
         </table>
+        
+       
     @endforeach
+
+    <br>
+    
+    <table>
+        <tr>
+            <td> Employee Count :</td>
+            <td>{{ $total['attendees']}} / {{ $total['employees']}}</td>
+        </tr>
+    </table>
+    <table  border=0 style="width:100%">
+        <tr>
+            <td colspan="5"> Absent(s) :</td>
+        </tr>
+        @foreach($total['absent'] as $absent)
+        <tr>
+            <td style="padding: 0 4px;">{{ $loop->iteration }}.</td>
+            <td > {{ $absent->employee_name }} </td>
+            <td style="padding: 0 8px;" > {{ $absent->div_code }} </td>
+            <td > {{ $absent->dept_name }} </td>
+            <td > {{ $absent->job_title_name }} </td>     
+        </tr>
+        @endforeach
+    </table>
 </body>
 </html>

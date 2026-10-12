@@ -49,6 +49,7 @@ class AttendanceRepository
                 ->leftJoinSub($att,'events_att','events_att.biometric_id','=','employees.biometric_id')
                 ->where('employees.exit_status','=',1)
                 ->where('employees.job_title_id','!=',130)
+                ->where('employees.emp_level','<=',5) // FOR JLR ONLY
 
                 ->where('employees.division_id','=',$division->division_id)
                 ->where('employees.dept_id','=',$department->id)

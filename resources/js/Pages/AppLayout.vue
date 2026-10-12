@@ -18,6 +18,10 @@
     import NavMenubar from './Nav/NavMenubar.vue';
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+/* @media only screen and (max-width: 600px) {
+    * {
+        font-size: 9pt;
+    }
+}  */
 </style>

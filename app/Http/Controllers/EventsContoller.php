@@ -101,10 +101,15 @@ class EventsContoller extends Controller
     {
         $event_id = (int) $request->id;
 
+        $event = $this->service->getEvent($event_id);
+
         $data = $this->service->buildAttendance($event_id);
+        $total = $this->service->getTotals($event_id);
 
         $pdf = Pdf::loadView('event-attendance.print',[
-            'data' => $data
+            'data' => $data,
+            'total' => $total,
+            'event' => $event
         ]);
      
         return $pdf->stream('JLR Event Attendance.pdf');

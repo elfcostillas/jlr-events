@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageNotification;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EventsContoller;
 use App\Http\Controllers\ProfileController;
@@ -51,4 +52,9 @@ Route::middleware('auth')->prefix('events')->group(function(){
 
 Route::middleware('auth')->prefix('attendance')->group(function(){ 
     Route::get('/', [AttendanceController::class, 'index'])->name('attendance.index');
+});
+
+
+Route::get('event',function(){
+    event(new MessageNotification('my first broadcast.'));
 });

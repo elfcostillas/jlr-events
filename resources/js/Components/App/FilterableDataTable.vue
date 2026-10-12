@@ -24,7 +24,7 @@
                 </Toolbar>
                 
             </template>
-            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header">
+            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" :headerClass="col.class" :bodyClass="col.class">
                 <template #body="{ data }">
                     <!-- Date column -->
                     <span v-if="col.type === 'date'">
@@ -105,6 +105,15 @@
     };
 </script>
 
-<style lang="scss" scoped>
+<style lang="css">
+    @media (max-width: 800px) {
+        .hidden-mobile {
+            display: none !important;
+        }
 
+        * {
+          
+            font-size: 9pt !important;
+        }
+    }
 </style>

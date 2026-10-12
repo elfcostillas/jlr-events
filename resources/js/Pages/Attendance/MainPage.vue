@@ -38,11 +38,11 @@
     ]); 
 
     const columns = ref([ 
-        { field : 'biometric_id', header : 'Bio ID' },
+        { field : 'biometric_id', header : 'Bio ID',},
         { field : 'employee_name', header : 'Employee Name' },
-        { field : 'job_title_name', header : 'Position' },
-        { field : 'div_code', header : 'Division' },
-        { field : 'dept_name', header : 'Department' },
+        { field : 'job_title_name', header : 'Position', class : 'hidden-mobile' },
+        { field : 'div_code', header : 'Division', class : 'hidden-mobile' },
+        { field : 'dept_name', header : 'Department', class : 'hidden-mobile' },
         { field : 'att_status_code', header : 'Status', type : 'status' },
         { 
             field : 'actions',
@@ -56,6 +56,17 @@
 
     onMounted(async() => {
         fetchData();
+
+        // console.log('Echo initialized:', window.Echo);
+
+        window.Echo
+            .channel('notification')
+            .listen('MessageNotification', (event) => {
+                // console.log(event);
+            // alert();
+            fetchData()
+
+        });
     });
 
 
@@ -130,6 +141,6 @@
     
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
 </style>

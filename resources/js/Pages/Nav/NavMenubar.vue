@@ -52,7 +52,7 @@ const items = ref([
         icon : 'pi pi-calendar',
         // route : '/events'
         command : () => {
-            router.visit('/events');
+            router.visit('/jlr-event-att/events');
         }
     },
     {
@@ -60,7 +60,7 @@ const items = ref([
         icon : 'pi pi-user',
         // route : '/attendance'
         command : () => {
-            router.visit('/attendance');
+            router.visit('/jlr-event-att/attendance');
         }
     }
 ]);
