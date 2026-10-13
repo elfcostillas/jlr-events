@@ -114,4 +114,22 @@ class EventsContoller extends Controller
      
         return $pdf->stream('JLR Event Attendance.pdf');
     }
+
+    public function printSG(Request $request)
+    {
+        $event_id = (int) $request->id;
+
+        $event = $this->service->getEvent($event_id);
+
+        $data = $this->service->buildAttendanceSG($event_id);
+        $total = $this->service->getTotalsSG($event_id);
+
+        $pdf = Pdf::loadView('event-attendance.print',[
+            'data' => $data,
+            'total' => $total,
+            'event' => $event
+        ]);
+     
+        return $pdf->stream('JLR Event Attendance.pdf');
+    }
 }

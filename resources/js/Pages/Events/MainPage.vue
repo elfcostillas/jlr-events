@@ -7,7 +7,9 @@
                 <DataTable :title="title" :value="data" :loading="loading" :columns="columns" 
                 @edit="edit"
                 @create="create"
-                @print="print" />
+                @print="print" 
+                @printSG="printSG"
+                />
             </template>
             <template v-slot:dialog >
                 <Dialog v-model:visible="isVisible" modal header="Event Details" :style="{ width: '32rem' }">
@@ -108,6 +110,10 @@
 
     const print = (data) => {
         window.open(`events/print/${data.id}`);
+    }
+
+     const printSG = (data) => {
+        window.open(`events/print-sg/${data.id}`);
     }
 
     const save = async () => {

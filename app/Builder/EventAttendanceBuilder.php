@@ -54,6 +54,32 @@ class EventAttendanceBuilder
         return $this;
     }
 
+    public function getDivisionsSG()
+    {
+        foreach($this->locations as $location)
+        {
+            $divisions = $this->emp_repo->getDivisions($location);
+
+            foreach($divisions as $division)
+            {
+                $departments = $this->emp_repo->getDepartments($location,$division);
+
+                foreach($departments as $department)
+                {
+                    $employee = $this->att_repo->attendanceSG($this->event_id,$location,$division,$department);
+
+                    $department->employees = $employee;
+                }
+
+                $division->departments = $departments;
+            }
+
+            $location->divisions = $divisions;
+        }
+
+        return $this;
+    }
+
     public function get()
     {
         return $this->locations;

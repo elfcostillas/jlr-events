@@ -48,6 +48,7 @@ Route::get('index',function(){
 Route::middleware('auth')->prefix('events')->group(function(){ 
     Route::get('/', [EventsContoller::class, 'index'])->name('events.index');
     Route::get('print/{id}', [EventsContoller::class, 'print'])->name('events.print');
+    Route::get('print-sg/{id}', [EventsContoller::class, 'printSG'])->name('events.print');
 });
 
 Route::middleware('auth')->prefix('attendance')->group(function(){ 

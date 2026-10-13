@@ -54,7 +54,7 @@
     @foreach($data as $location)
         <table border=1 style="width:100%;border=1;border-collapse:collapse;">
             <tr>
-                <td class="pad" colspan=5> {{ $location->location_name }} </td>
+                <td class="pad" colspan=5 style="background-color:yellow"> {{ $location->location_name }} </td>
             </tr>
             @foreach($location->divisions as $division)
             <tr>

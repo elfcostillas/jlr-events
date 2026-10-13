@@ -50,10 +50,29 @@ class EventsService extends Service
         return $attendance;
     }
 
+    public function buildAttendanceSG($event_id)
+    {
+        $builder = app(EventAttendanceBuilder::class);   
+
+        $attendance = $builder
+                    ->setEvent($event_id)
+                    ->getLocations()
+                    ->getDivisionsSG()
+                    ->get();
+
+        return $attendance;
+    }
+
     public function getTotals($events_id)
     {
         return $this->emp_repo->getTotal($events_id);
     }
+
+    public function getTotalsSG($events_id)
+    {
+        return $this->emp_repo->getTotalSG($events_id);
+    }
+
 
     public function getEvent($event_id)
     {

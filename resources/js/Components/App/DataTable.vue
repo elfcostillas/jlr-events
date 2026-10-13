@@ -37,9 +37,18 @@
                             v-if="col.buttons?.includes('print')"
                             severity="secondary" raised
                             icon="pi pi-print"
-                            label="Print"
+                            label="Print - JLR"
                             class="p-button-sm mr-2"
                             @click="$emit('print', data)"
+                        />
+
+                         <Button
+                            v-if="col.buttons?.includes('print')"
+                            severity="secondary" raised
+                            icon="pi pi-print"
+                            label="Print - Support Group"
+                            class="p-button-sm mr-2"
+                            @click="$emit('printSG', data)"
                         />
                     </span>
                     <span v-else>
